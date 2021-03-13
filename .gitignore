@@ -104,4 +104,4 @@ dist
 .tern-port
 
 # vscode directory
-.vscode
+.vscode/
