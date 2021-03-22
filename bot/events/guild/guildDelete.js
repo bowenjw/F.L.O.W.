@@ -9,11 +9,11 @@ const { Client, Guild } = require('discord.js');
 module.exports = (client, guild) => {
     const con = mysql.createConnection(JSON.parse(process.env.MYSQLSERVER));
     try{
-        con.query(`DELETE FROM message guild_id = '${guild.id}'`, (err) => {
+        con.query(`DELETE FROM message WHERE guild_id = '${guild.id}'`, (err) => {
             if(err) throw err;
-            con.query(`DELET FROM report WHERE guild_id = '${guild.id}'`, (err) => {
+            con.query(`DELETE FROM report WHERE guild_id = '${guild.id}'`, (err) => {
                 if(err) throw err;
-                con.query(`DELET FROM user WHERE guild_id = '${guild.id}'`, (err) => {
+                con.query(`DELETE FROM user WHERE guild_id = '${guild.id}'`, (err) => {
                     if(err) throw err;
                     con.query(`DELETE FROM guild WHERE guild_id = '${guild.id}'`, (err) => {
                         if(err) throw err;
