@@ -18,7 +18,7 @@ module.exports = (client) => {
 		for(const file of event_files) {
 			const event = require(`../events/${dirs}/${file}`);
 			const event_name = file.split('.')[0];
-			client.on(event_name, event.bind(null, client));
+			try{client.on(event_name, event.bind(null, client));}catch(e){console.log(e)}
 		}
 	};
 	// guild is comented out as no command is in the dir. this prevents an error
