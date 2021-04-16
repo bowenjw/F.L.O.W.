@@ -1,7 +1,5 @@
-const mysql = require('mysql');
-const con = mysql.createConnection(JSON.parse(process.env.MYSQLSERVER));
 const { Message } = require('discord.js');
-const { drawReport } = require('../../commands/system/system');
+const { drawReport } = require('../../commands/system/mysqldb');
 module.exports = {
 	name: 'report',
 	description: 'sends new message in report chat',

@@ -5,4 +5,3 @@ const manager = new ShardingManager('./bot/bot.js', { token: process.env.DISCORD
 
 manager.on('shardCreate', shard => console.log(`Launched shard ${shard.id}`));
 manager.spawn();
-require('./dashboard/server');

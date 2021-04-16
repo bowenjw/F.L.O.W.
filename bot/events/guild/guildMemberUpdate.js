@@ -1,7 +1,7 @@
 const mysql = require('mysql');
 const con = mysql.createConnection(JSON.parse(process.env.MYSQLSERVER));
 const { Client, GuildMember  } = require('discord.js');
-const drawReport = require('../../commands/system/drawReport');
+const { drawReport } = require('../../commands/system/mysqldb');
 /**
  * 
  * @param { Client } _client 
@@ -17,10 +17,10 @@ module.exports = (_client, oldMember, newMember) => {
         const newRoleLookUp = newMember.roles.cache.find(role => role.id = roleID);
         if(oldRoleLookUp == newRoleLookUp) return;
         else if(oldRoleLookUp.id == roleID){
-            con.query(`DELETE FROM user WHERE Discord_id = '${newMember.id}' AND guild_id = '${newMember.guild.id}'`,(err) => { if(err) throw err; });
+            con.query(`DELETE FROM user WHERE discord_id = '${newMember.id}' AND guild_id = '${newMember.guild.id}'`,(err) => { if(err) throw err; });
         }
         else if(newRoleLookUp.id == roleID){
-            con.query(`INSERT INTO user (Discord_id, Guild_id) VALUES ('${newMember.id}', '${newMember.guild.id}') ON DUPLICATE KEY Discord_id=Discord_id`,(err) =>{ if(err) throw err; });
+            con.query(`INSERT INTO user (discord_id, guild_id) VALUES ('${newMember.id}', '${newMember.guild.id}') ON DUPLICATE KEY Discord_id=Discord_id`,(err) =>{ if(err) throw err; });
         }
         drawReport(newMember.guild);
     });
