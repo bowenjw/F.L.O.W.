@@ -1,6 +1,4 @@
-const mysql = require('mysql');
 const { Message, MessageEmbed } = require('discord.js');
-const con = mysql.createConnection(process.env.MYSQLSERVER);
 module.exports = {
 	name: 'vacation',
 	description: 'For aproving and ending vacation',
@@ -8,7 +6,7 @@ module.exports = {
     /**
      * 
      * @param { Message } message
-     * @param { string[] } args
+     * @param { String[]} args
      */
 	execute(message, args) {
         message.reply('vaction System is WIP')
@@ -16,16 +14,7 @@ module.exports = {
         const target = args[1];
         const guild = message.guild;
         if(!isEnabled(guild)){
-            const embed = new MessageEmbed()
-                .setAuthor('F.L.O.W.')
-                //.setColor() set later
-                .setTimestamp()
-                .setTitle('Vacation System')
-                .setDescription('This system provids a way of taking those how are out of the office.\n To enable the Vaction run `vacation enable`\n A channel and role will')
-                .addFields(
-                    {name: 'Status', value: 'Disabled'},
-                    {name: 'Not on Vaction', value: notVaction},
-                );
+            
         }
         con.query(`SELECT vaction_enable FROM guild WHERE guild_id =''${guild.id}`, (err,result) => {
             if(err) throw err;

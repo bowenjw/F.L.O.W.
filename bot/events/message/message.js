@@ -1,5 +1,5 @@
 const { Client, Message } = require('discord.js');
-const { enablecheck, getGuildInfo, newProgressUpdate, newReport } =  require('../../commands/system/mysqldb');
+const { enablecheck, getGuildInfo, newProgressUpdate, newReport } =  require('../../commands/system/report');
 /**
  * @description Emitted whenever a message is created
  * @author John W. Bowen
@@ -10,8 +10,8 @@ module.exports = (client, message) => {
 	const guild = message.guild;
 	if(guild){
 		const  member = guild.members.resolve(message.author.id);
-		getGuildInfo(guild, async (guildInfo)=>{
-			const prefix = await guildInfo.prefix;
+		getGuildInfo(guild, (guildInfo)=>{
+			const prefix = guildInfo.prefix;
 			const reportChannel = guild.channels.resolve(guildInfo.report_channel_id);
 			const progressChannel = guild.channels.resolve(guildInfo.progress_channel_id);
 			if( !message.author.bot && message.content.startsWith(prefix) && (member.hasPermission('ADMINISTRATOR') || member.hasPermission('MANAGE_GUILD'))) {
@@ -30,8 +30,8 @@ module.exports = (client, message) => {
 				newProgressUpdate(message);
 			} else if(message.author.bot && message.channel == reportChannel && enablecheck(guild)){
 				newReport(message);
-			}
-
+			} 
 		});
+		
 	}
 };

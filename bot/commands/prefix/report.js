@@ -1,5 +1,5 @@
 const { Message } = require('discord.js');
-const { drawReport } = require('../../commands/system/mysqldb');
+const { drawReport } = require('../system/report');
 module.exports = {
 	name: 'report',
 	description: 'sends new message in report chat',
@@ -10,5 +10,5 @@ module.exports = {
    * @author John W Bowen
    * @param { Message } message 
    */
-  execute(message) { drawReport(message,true); }
+  execute(message) { drawReport(message.guild,true); }
 }
